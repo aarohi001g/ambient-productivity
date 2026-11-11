@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="slide-1">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ambient | Personal Productivity Platform</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23FFAC67'/></svg>">
+</head>
+<body>
+
+  <!-- Ambient Lighting Engine: Soft Diffused Background Luminescence -->
+  <div class="ambient-backdrop" aria-hidden="true">
+    <div class="ambient-glow-primary"></div>
+    <div class="ambient-glow-secondary"></div>
+  </div>
+
+  <!-- Top Sticky Navigation -->
+  <header class="top-navbar">
+    <div class="brand-section" id="brandBtn">
+      <div class="brand-orb"></div>
+      <div class="brand-title">
+        Ambient
+        <span class="brand-badge" id="slideIndicatorBadge">Daily</span>
+      </div>
+    </div>
+
+    <!-- The 3 Core Navigation Tabs -->
+    <nav class="nav-tabs-container" aria-label="Main Navigation">
+      <button class="nav-tab-btn active" data-slide="1" id="tabBtn1">
+        <span class="tab-dot"></span>
+        <span>Daily To-Do</span>
+        <span class="tab-key-hint">1</span>
+      </button>
+      <button class="nav-tab-btn" data-slide="2" id="tabBtn2">
+        <span class="tab-dot"></span>
+        <span>My Workspace Cards</span>
+        <span class="tab-key-hint">2</span>
+      </button>
+      <button class="nav-tab-btn" data-slide="3" id="tabBtn3">
+        <span class="tab-dot"></span>
+        <span>Future Planning</span>
+        <span class="tab-key-hint">3</span>
+      </button>
+      <button class="nav-tab-btn" data-slide="4" id="tabBtn4">
+        <span class="tab-dot"></span>
+        <span>College Clubs</span>
+        <span class="tab-key-hint">4</span>
+      </button>
+    </nav>
+
+    <!-- Top Navigation Actions -->
+    <div class="nav-actions">
+      <!-- Notification Bell -->
+      <button class="icon-btn" id="notifBellBtn" title="Notifications & Reminders" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+          <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+        </svg>
+        <span class="badge-counter" id="notifBadge" style="display: none;">0</span>
+      </button>
+
+      <!-- Notification Popover Dropdown -->
+      <div class="popover-dropdown" id="notifPopover">
+        <div class="popover-header">
+          <span style="font-weight: 700; font-size: 0.95rem;">Upcoming Reminders</span>
+          <button class="btn-ghost" id="testChimeBtn" style="font-size: 0.75rem;">Test Chime</button>
+        </div>
+        <div class="popover-list" id="notifList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+      <!-- Settings Icon -->
+      <button class="icon-btn" id="settingsBtn" title="Settings & Backup" aria-label="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Application Body -->
+  <main class="app-main">
+
+    <!-- ======================================================================
+         SLIDE 1: DAILY TO-DO LIST (DEFAULT SCREEN)
+         ====================================================================== -->
+    <section class="slide-section active" id="slide-1" data-slide-index="1">
+      <!-- Section Header -->
+      <div class="section-header">
+        <div class="section-header-top">
+          <div>
+            <h1 class="section-title">Today's To-Do List</h1>
+            <p class="section-subtitle" id="currentDateDisplay">Loading today's date...</p>
+          </div>
+          <div style="display: flex; gap: 0.75rem;">
+            <button class="btn-secondary" id="carryForwardBtn" title="Preserve unfinished tasks into tomorrow">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+              Carry Forward Incomplete
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Daily Progress Overview Card -->
+      <div class="daily-overview-card">
+        <div class="overview-stats-grid">
+          <div class="stat-group">
+            <div class="stat-chip">
+              <span class="stat-chip-label">Daily Progress</span>
+              <span class="stat-chip-val completed" id="progressPercentDisplay">0%</span>
+            </div>
+          </div>
+          <div class="stat-group">
+            <div class="stat-chip">
+              <span class="stat-chip-label">Total Tasks</span>
+              <span class="stat-chip-val" id="totalTasksCount">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Completed</span>
+              <span class="stat-chip-val" id="completedTasksCount" style="color: var(--accent);">0</span>
+            </div>
+            <div class="stat-chip">
+              <span class="stat-chip-label">Pending</span>
+              <span class="stat-chip-val" id="pendingTasksCount">0</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-track" aria-label="Completion progress">
+          <div class="progress-fill" id="dailyProgressBar" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <!-- Add New Task Input Card -->
+      <div class="add-task-card">
+        <input 
+          type="text" 
+          class="task-input-primary" 
+          id="newTaskTitle" 
+          placeholder="What do you need to accomplish today? (Press Enter to add)" 
+          autocomplete="off"
+        />
+        <textarea 
+          class="task-input-secondary" 
+          id="newTaskDesc" 
+          rows="1" 
+          placeholder="Optional notes or context..."
+        ></textarea>
+
+        <div class="add-task-controls">
+          <div class="task-options-row">
+            <!-- Priority Selector -->
+            <div class="priority-pills" id="newTaskPriorityGroup">
+              <button type="button" class="pill-btn" data-priority="High">High</button>
+              <button type="button" class="pill-btn active" data-priority="Medium">Medium</button>
+              <button type="button" class="pill-btn" data-priority="Low">Low</button>
+            </div>
+
+            <!-- Optional Time -->
+            <div class="field-group" title="Scheduled time today">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              <input type="time" id="newTaskTime" />
+            </div>
+
+            <!-- Optional Reminder -->
+            <div class="field-group" title="Set a reminder alert">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <select id="newTaskReminderTiming">
+                <option value="none">No Reminder</option>
+                <option value="1h">1 hour before</option>
+                <option value="12h">12 hours before</option>
+                <option value="1d">1 day before</option>
+                <option value="3d">3 days before</option>
+                <option value="1w">1 week before</option>
+              </select>
+            </div>
+          </div>
+
+          <button class="btn-primary" id="addTaskSubmitBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Add Task
+          </button>
+        </div>
+      </div>
+
+      <!-- Task Filter and Sorting Toolbar -->
+      <div class="task-toolbar">
+        <div class="filter-group" id="taskStatusFilters">
+          <button class="filter-btn active" data-filter="all">All Tasks</button>
+          <button class="filter-btn" data-filter="pending">Pending</button>
+          <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+
+        <div class="sort-and-actions">
+          <div class="field-group">
+            <span style="font-size: 0.78rem; color: var(--text-dim);">Sort:</span>
+            <select id="taskSortSelect">
+              <option value="priority">Priority (High to Low)</option>
+              <option value="time">Time (Chronological)</option>
+              <option value="creation">Creation Order</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clean Task List Container -->
+      <div class="task-list" id="dailyTasksContainer">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Optional Compact Time Schedule Section -->
+      <div class="schedule-section">
+        <div class="schedule-header">
+          <h2 class="schedule-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Today's Time Schedule
+          </h2>
+          <span style="font-size: 0.82rem; color: var(--text-muted);" id="scheduledTasksCount">0 scheduled</span>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.25rem;">
+          Tasks with an assigned time automatically appear in this chronological timeline.
+        </p>
+        <div class="timeline-container" id="scheduleTimelineContainer">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SLIDE 2: MY WORKSPACE CARDS (OVERVIEW + DEDICATED FULL VIEW)
+         ====================================================================== -->
+    <section class="slide-section" id="slide-2" data-slide-index="2">
+      <!-- 2A. OVERVIEW VIEW: Horizontal Cards Row -->
+      <div id="workspaceOverviewView">
+        <div class="section-header">
+          <div class="section-header-top">
+            <div>
+              <h1 class="section-title">My Workspaces</h1>
+              <p class="section-subtitle">
+                Click any workspace card to open its dedicated full-screen workspace. Manage hackathons, internships, projects, and learning.
+              </p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+              <button class="btn-primary" id="openNewWorkspaceModalBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Add New Card
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search and Scroll Bar -->
+        <div class="workspace-controls-bar">
+          <div class="search-input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input 
+              type="text" 
+              class="search-input" 
+              id="workspaceSearchInput" 
+              placeholder="Search entries across all workspaces..."
+            />
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn-secondary" id="scrollWorkspacesLeftBtn" title="Scroll Left">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button class="btn-secondary" id="scrollWorkspacesRightBtn" title="Scroll Right">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Horizontal Scrolling Workspace Row -->
+        <div class="workspace-scroll-viewport">
+          <div class="workspace-cards-row" id="workspaceCardsContainer">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 2B. DEDICATED FULL-SCREEN WORKSPACE VIEW -->
+      <div id="workspaceDedicatedView" style="display: none;">
+        <!-- Rendered dynamically via renderDedicatedWorkspacePage(wsId) -->
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SLIDE 3: FUTURE PLANNING (DIGITAL STICKY CHEAT-SHEET NOTES)
+         ====================================================================== -->
+    <section class="slide-section" id="slide-3" data-slide-index="3">
+      <div class="section-header">
+        <div class="section-header-top">
+          <div>
+            <h1 class="section-title">Future Planning</h1>
+            <p class="section-subtitle">
+              Cheat-sheet notes, ideas, and flexible thoughts. Freeform, colorful, and accessible.
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <button class="btn-primary" id="openAddFutureNoteBtn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              + Add Note
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolbar with Search and Note Count -->
+      <div class="future-notes-toolbar">
+        <div class="search-input-wrap" style="max-width: 340px;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="futureNotesSearchInput" 
+            placeholder="Search notes and ideas..."
+          />
+        </div>
+        <span style="font-size: 0.85rem; color: var(--text-dim);" id="futureNotesCountBadge">
+          0 notes
+        </span>
+      </div>
+
+      <!-- Freeform Colorful Cheat-Sheet Notes Grid -->
+      <div class="future-notes-grid" id="futureNotesContainer">
+        <!-- Rendered dynamically as colorful rectangular digital sticky notes -->
+      </div>
+    </section>
+
+    <!-- SLIDE 4: COLLEGE CLUBS -->
+    <section class="slide-section" id="slide-4" data-slide-index="4">
+      <div class="section-header"><div><h1 class="section-title">College Clubs</h1><p class="section-subtitle">Track your memberships, roles, events, contributions and achievements.</p></div></div>
+      <div id="clubsContainer" class="clubs-container"></div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       MODALS & DIALOGS
+       ====================================================================== -->
+
+  <!-- Modal 1: Workspace Entry Add / Edit Modal -->
+  <div class="modal-backdrop" id="entryModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="entryModalTitle">New Entry</h3>
+        <button class="icon-btn" id="closeEntryModalBtn" style="border: none; background: transparent;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="entryModalForm">
+        <div class="modal-body" id="entryModalFieldsContainer">
+          <!-- Dynamically populated based on Workspace category -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancelEntryModalBtn">Cancel</button>
+          <button type="submit" class="btn-primary" id="saveEntryModalBtn">Save Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Create Custom Workspace Modal -->
+  <div class="modal-backdrop" id="newWorkspaceModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Create Custom Workspace Card</h3>
+        <button class="icon-btn" id="closeNewWorkspaceModalBtn" style="border: none; background: transparent;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="newWorkspaceForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Category Name *</label>
+            <input type="text" class="form-input" id="customWsName" placeholder="e.g. Research Papers, Certifications, Freelance" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <input type="text" class="form-input" id="customWsDesc" placeholder="Brief summary of this workspace" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Icon</label>
+            <select class="form-select" id="customWsIcon">
+              <option value="folder">Folder</option>
+              <option value="bookmark">Bookmark</option>
+              <option value="target">Target</option>
+              <option value="layers">Layers</option>
+              <option value="star">Star</option>
+              <option value="cpu">Hardware / CPU</option>
+              <option value="compass">Compass</option>
+            </select>
+          </div>
+
+          <div style="border-top: 1px solid var(--border-subtle); padding-top: 1rem;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+              <span class="form-label">Custom Fields Definition</span>
+              <button type="button" class="btn-ghost" id="addCustomFieldBtn" style="font-size: 0.8rem; color: var(--accent);">
+                + Add Field
+              </button>
+            </div>
+            <div id="customFieldsBuilderList" style="display: flex; flex-direction: column; gap: 0.6rem;">
+              <!-- Field builder rows -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancelNewWorkspaceBtn">Cancel</button>
+          <button type="submit" class="btn-primary">Create Workspace</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 3: Add / Edit Future Note Modal -->
+  <div class="modal-backdrop" id="futurePlanModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="futurePlanModalTitle">Add Future Note</h3>
+        <button class="icon-btn" id="closeFuturePlanModalBtn" style="border: none; background: transparent;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="futurePlanForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Note Title *</label>
+            <input type="text" class="form-input" id="fpName" placeholder="e.g. Master WebGPU Shaders or Key Formulas" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Notes & Description</label>
+            <textarea class="form-textarea" id="fpDesc" style="min-height: 110px;" placeholder="Write anything you want — thoughts, cheat-sheets, links, reference lists..."></textarea>
+          </div>
+          
+          <!-- Card Color Selector -->
+          <div class="form-group">
+            <label class="form-label">Card Color (Pastel Sticky Shade)</label>
+            <div class="color-swatches-row" id="noteColorPicker">
+              <button type="button" class="color-swatch-btn active" data-color="orange" title="Soft Orange" style="background: #FFE4D6;"></button>
+              <button type="button" class="color-swatch-btn" data-color="blue" title="Light Blue" style="background: #D8EEFD;"></button>
+              <button type="button" class="color-swatch-btn" data-color="lavender" title="Lavender" style="background: #EDE4F9;"></button>
+              <button type="button" class="color-swatch-btn" data-color="mint" title="Mint Green" style="background: #D8F5E5;"></button>
+              <button type="button" class="color-swatch-btn" data-color="pink" title="Soft Pink" style="background: #FFE2EC;"></button>
+              <button type="button" class="color-swatch-btn" data-color="yellow" title="Muted Yellow" style="background: #FEF4C5;"></button>
+            </div>
+            <input type="hidden" id="fpColor" value="orange" />
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Optional Date</label>
+              <input type="date" class="form-input" id="fpTargetDate" />
+              <small style="color: var(--text-dim); font-size: 0.72rem;">Optional target or reminder date</small>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Reminder Alert</label>
+              <select class="form-select" id="fpReminderTiming">
+                <option value="none">No Reminder</option>
+                <option value="1h">1 hour before</option>
+                <option value="12h">12 hours before</option>
+                <option value="1d">1 day before</option>
+                <option value="3d">3 days before</option>
+                <option value="1w">1 week before</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancelFuturePlanBtn">Cancel</button>
+          <button type="submit" class="btn-primary" id="saveFuturePlanBtn">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 4: Move Future Plan to Workspace Modal -->
+  <div class="modal-backdrop" id="moveToWorkspaceModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Move Future Plan to Workspace</h3>
+        <button class="icon-btn" id="closeMoveModalBtn" style="border: none; background: transparent;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Select the destination workspace to transfer <strong id="movePlanItemTitle" style="color: var(--text-main);"></strong>.
+          All descriptions, dates, and notes will be preserved.
+        </p>
+        <div class="form-group">
+          <label class="form-label">Destination Workspace *</label>
+          <select class="form-select" id="destinationWorkspaceSelect">
+            <!-- Populated dynamically -->
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="cancelMoveBtn">Cancel</button>
+        <button type="button" class="btn-primary" id="confirmMoveBtn">Transfer to Workspace</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: Edit Task Modal -->
+  <div class="modal-backdrop" id="editTaskModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Edit Daily Task</h3>
+        <button class="icon-btn" id="closeEditTaskBtn" style="border: none; background: transparent;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <form id="editTaskForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Task Name *</label>
+            <input type="text" class="form-input" id="editTaskTitle" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea class="form-textarea" id="editTaskDesc"></textarea>
+          </div>
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label class="form-label">Priority</label>
+              <select class="form-select" id="editTaskPriority">
+                <option value="High">High</option>
+                <option value="Medium">Medium</option>
+                <option value="Low">Low</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Time Today</label>
+              <input type="time" class="form-input" id="editTaskTime" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reminder Alert</label>
+            <select class="form-select" id="editTaskReminder">
+              <option value="none">No Reminder</option>
+              <option value="1h">1 hour before</option>
+              <option value="12h">12 hours before</option>
+              <option value="1d">1 day before</option>
+              <option value="3d">3 days before</option>
+              <option value="1w">1 week before</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="cancelEditTaskBtn">Cancel</button>
+          <button type="submit" class="btn-primary">Update Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 6: Settings & Data Management Modal -->
+  <div class="modal-backdrop" id="settingsModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Settings & System Preferences</h3>
+        <button class="icon-btn" id="closeSettingsModalBtn" style="border: none; background: transparent;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom: 1.5rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem;">Audio & Notifications</h4>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.88rem; cursor: pointer;">
+              <span>Notification Sound (Web Audio Chime)</span>
+              <input type="checkbox" id="settingSoundToggle" class="custom-checkbox" checked />
+            </label>
+            <label style="display: flex; align-items: center; justify-content: space-between; font-size: 0.88rem; cursor: pointer;">
+              <span>Browser Desktop Notifications</span>
+              <button class="btn-secondary" id="requestBrowserNotifBtn" style="font-size: 0.78rem; padding: 0.35rem 0.65rem;">
+                Enable Browser Alerts
+              </button>
+            </label>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; margin-bottom: 1.5rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem;">Data Backup & Portability</h4>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn-secondary" id="exportDataBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Export JSON Backup
+            </button>
+            <button class="btn-secondary" id="triggerImportBtn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              Import JSON Backup
+            </button>
+            <input type="file" id="importFileInput" accept=".json" style="display: none;" />
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem;">
+          <h4 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem;">Reset & Recovery</h4>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button class="btn-secondary" id="resetDemoDataBtn">Reset to Sample Data</button>
+            <button class="btn-ghost btn-danger" id="clearAllDataBtn">Clear All Data</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" id="saveSettingsBtn">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- College Club Add/Edit Modal -->
+  <div class="modal-backdrop" id="clubModal">
+    <div class="modal-box club-modal-box">
+      <div class="modal-header"><h3 class="modal-title" id="clubModalTitle">Add New Club</h3><button class="icon-btn" id="closeClubModalBtn" type="button" aria-label="Close">×</button></div>
+      <form id="clubForm">
+        <div class="club-form-grid">
+          <label class="form-field"><span class="form-label">Club name *</span><input class="form-input" id="clubName" required maxlength="100" placeholder="e.g. Google Developer Student Club"></label>
+          <label class="form-field"><span class="form-label">Category</span><select class="form-select" id="clubCategory"><option>Technical Clubs</option><option>Cultural Clubs</option><option>Debating & Literary Clubs</option><option>Social Service/NSS Clubs</option><option>Other</option></select></label>
+          <label class="form-field"><span class="form-label">Designation</span><input class="form-input" id="clubDesignation" placeholder="Member, Event Head, Volunteer..."></label>
+          <label class="form-field"><span class="form-label">Joining date</span><input class="form-input" id="clubJoinDate" type="date"></label>
+          <label class="form-field"><span class="form-label">Status</span><select class="form-select" id="clubStatus"><option>Active</option><option>Alumni</option><option>On Hold</option></select></label>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn-secondary" id="cancelClubModalBtn">Cancel</button><button type="submit" class="btn-primary">Save Club</button></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Application Logic Scripts -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
